@@ -1,0 +1,8 @@
+print("Ý nghĩa của các loại toán tử:/,//,%,**,and,or,is")
+print("Toán tử /: Phép chia thông thường, trả về kết quả là một số thực (float).")
+print("Toán tử //: Phép chia lấy phần nguyên, trả về kết quả là một số nguyên (int) bằng cách loại bỏ phần thập phân.")
+print("Toán tử %: Phép chia lấy phần dư, trả về phần dư của phép chia hai số.")
+print("Toán tử **: Phép lũy thừa, trả về kết quả của việc nâng một số lên lũy thừa của một số khác.")
+print("Toán tử and: Toán tử logic AND, trả về True nếu cả hai biểu thức đều đúng, ngược lại trả về False.")
+print("Toán tử or: Toán tử logic OR, trả về True nếu ít nhất một trong hai biểu thức đúng, ngược lại trả về False.")
+print("Toán tử is: Toán tử so sánh danh tính, kiểm tra xem hai biến có tham chiếu đến cùng một đối tượng trong bộ nhớ hay không.")

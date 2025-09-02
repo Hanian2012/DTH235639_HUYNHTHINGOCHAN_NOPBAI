@@ -1,0 +1,5 @@
+print('a', end = '  ')
+print('b', end = '+')
+print('c', end = '\n')
+print('Học lập trình')
+print('Python')
