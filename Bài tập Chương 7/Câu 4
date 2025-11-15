@@ -1,0 +1,69 @@
+from tkinter import *
+# --- Tạo cửa sổ chính ---
+root = Tk()
+root.title("Cộng trừ nhân chia")
+root.geometry("250x200")
+root.resizable(False, False)
+
+# --- Tiêu đề ---
+lbl_title = Label(root, text="Cộng trừ nhân chia", font=("Time new roman", 14, "bold"))
+lbl_title.grid(row=0, column=0, columnspan=3, pady=5)
+# --- Nhãn và ô nhập ---
+Label(root, text="Số a:").grid(row=1, column=1, sticky=E, padx=5, pady=2)
+txt_a = Entry(root, width=15)
+txt_a.grid(row=1, column=2, padx=5, pady=2)
+
+Label(root, text="Số b:").grid(row=2, column=1, sticky=E, padx=5, pady=2)
+txt_b = Entry(root, width=15)
+txt_b.grid(row=2, column=2, padx=5, pady=2)
+
+Label(root, text="Kết quả:").grid(row=3, column=1, sticky=E, padx=5, pady=2)
+txt_kq = Entry(root, width=15, state="readonly")
+txt_kq.grid(row=3, column=2, padx=5, pady=2)
+# --- Các hàm xử lý ---
+def tinh(toan_tu):
+    try:
+        a = float(txt_a.get())
+        b = float(txt_b.get())
+        if toan_tu == '+':
+            kq = a + b
+        elif toan_tu == '-':
+            kq = a - b
+        elif toan_tu == '*':
+            kq = a * b
+        elif toan_tu == '/':
+            if b == 0:
+                kq = "Không chia 0"
+            else:
+                kq = a / b
+
+        txt_kq.config(state="normal")
+        txt_kq.delete(0, END)
+        txt_kq.insert(0, str(kq))
+        txt_kq.config(state="readonly")
+    except:
+        txt_kq.config(state="normal")
+        txt_kq.delete(0, END)
+        txt_kq.insert(0, "Lỗi nhập liệu!")
+        txt_kq.config(state="readonly")
+
+def thoat():
+    root.destroy()
+# --- Cột nút bên trái ---
+btn_cong = Button(root, text="Cộng", width=8, command=lambda: tinh('+'))
+btn_cong.grid(row=1, column=0, padx=5, pady=2)
+
+btn_tru = Button(root, text="Trừ", width=8, command=lambda: tinh('-'))
+btn_tru.grid(row=2, column=0, padx=5, pady=2)
+
+btn_nhan = Button(root, text="Nhân", width=8, command=lambda: tinh('*'))
+btn_nhan.grid(row=3, column=0, padx=5, pady=2)
+
+btn_chia = Button(root, text="Chia", width=8, command=lambda: tinh('/'))
+btn_chia.grid(row=4, column=0, padx=5, pady=2)
+# --- Nút thoát ---
+btn_thoat = Button(root, text="Thoát", width=8, command=thoat)
+btn_thoat.grid(row=4, column=2, pady=8)
+# --- Chạy chương trình ---
+txt_a.focus()
+root.mainloop()

@@ -1,0 +1,23 @@
+import turtle
+# --- Hình ngôi sao ---
+t = turtle.Turtle()
+for i in range(5):
+    t.forward(100)
+    t.right(144)
+turtle.done()
+# --- Hình lục giác đều ---
+t = turtle.Turtle()
+for i in range(6):
+    t.forward(100)
+    t.right(60)
+turtle.done()
+# --- Ma trận các dấu chấm ---
+t = turtle.Turtle()
+t.penup()
+for y in range(7):
+    for x in range(5):
+        t.goto(x * 30, -y * 30)
+        t.dot(5, "black")
+turtle.done()
+
+

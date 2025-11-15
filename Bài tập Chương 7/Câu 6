@@ -1,0 +1,39 @@
+from tkinter import *
+from tkinter import messagebox
+# --- Tạo cửa sổ ---
+frmLogin = Tk()
+frmLogin.title("Enter New Password")
+frmLogin.geometry("320x150")
+frmLogin.resizable(False, False)
+# --- Hàm xử lý ---
+def kiem_tra():
+    old_pw = txt_old.get()
+    new_pw = txt_new.get()
+    again_pw = txt_again.get()
+
+    if new_pw == old_pw:
+        messagebox.showerror("Lỗi", "Bạn không được dùng mật khẩu cũ")
+    elif new_pw != again_pw:
+        messagebox.showerror("Lỗi", "Bạn phải nhập lại mật khẩu mới giống nhau")
+    else:
+        messagebox.showinfo("Thành công", "Đổi mật khẩu thành công!")
+
+def thoat():
+    frmLogin.destroy()
+# --- Nhãn ---
+Label(frmLogin, text="Old Password:").grid(row=0, column=0, padx=10, pady=5, sticky="W")
+Label(frmLogin, text="New Password:").grid(row=1, column=0, padx=10, pady=5, sticky="W")
+Label(frmLogin, text="Enter New Password Again:").grid(row=2, column=0, padx=10, pady=5, sticky="e")
+# --- Ô nhập ---
+txt_old = Entry(frmLogin, show="*")
+txt_new = Entry(frmLogin, show="*")
+txt_again = Entry(frmLogin, show="*")
+
+txt_old.grid(row=0, column=1, padx=10, pady=5)
+txt_new.grid(row=1, column=1, padx=10, pady=5)
+txt_again.grid(row=2, column=1, padx=10, pady=5)
+# --- Nút ---
+Button(frmLogin, text="OK", width=10, command=kiem_tra).grid(row=3, column=0, pady=10)
+Button(frmLogin, text="Cancel", width=10, command=thoat).grid(row=3, column=1, pady=10)
+frmLogin.mainloop()
+

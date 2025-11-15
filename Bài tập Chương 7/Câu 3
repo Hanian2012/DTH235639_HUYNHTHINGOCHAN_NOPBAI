@@ -1,0 +1,92 @@
+from tkinter import *
+from math import sqrt
+# --- Tạo cửa sổ ---
+frmPTB2 = Tk()
+frmPTB2.title("PTB2")
+frmPTB2.geometry("280x220")
+frmPTB2.resizable(False, False)
+# --- Tiêu đề ---
+lbl_title = Label(frmPTB2, text="Phương Trình Bậc 2", font=("Arial", 12, "bold"))
+lbl_title.grid(row=0, column=0, columnspan=2, pady=6)
+# --- Hệ số a ---
+lbl_a = Label(frmPTB2, text="Hệ số a:")
+lbl_a.grid(row=1, column=0, sticky=E, padx=6, pady=2)
+txt_a = Entry(frmPTB2, width=30)
+txt_a.grid(row=1, column=1, padx=6, pady=2)
+# --- Hệ số b ---
+lbl_b = Label(frmPTB2, text="Hệ số b:")
+lbl_b.grid(row=2, column=0, sticky=E, padx=6, pady=2)
+txt_b = Entry(frmPTB2, width=30)
+txt_b.grid(row=2, column=1, padx=6, pady=2)
+# --- Hệ số c ---
+lbl_c = Label(frmPTB2, text="Hệ số c:")
+lbl_c.grid(row=3, column=0, sticky=E, padx=6, pady=2)
+txt_c = Entry(frmPTB2, width=30)
+txt_c.grid(row=3, column=1, padx=6, pady=2)
+# --- Frame chứa các nút ---
+btn_frame = Frame(frmPTB2)
+btn_frame.grid(row=4, column=0, columnspan=2, pady=6)
+
+# --- Hàm giải phương trình ---
+def giai():
+    try:
+        a = float(txt_a.get())
+        b = float(txt_b.get())
+        c = float(txt_c.get())
+
+        if a == 0:
+            # Trường hợp trở thành PT bậc 1
+            if b == 0:
+                kq = "Vô nghiệm" if c != 0 else "Vô số nghiệm"
+            else:
+                kq = f"x = {-c / b:.2f}"
+        else:
+            delta = b**2 - 4*a*c
+            if delta < 0:
+                kq = "Vô nghiệm"
+            elif delta == 0:
+                x = -b / (2*a)
+                kq = f"x1 = x2 = {x:.2f}"
+            else:
+                x1 = (-b + sqrt(delta)) / (2*a)
+                x2 = (-b - sqrt(delta)) / (2*a)
+                kq = f"x1 = {x1:.2f}, x2 = {x2:.2f}"
+
+        txt_kq.config(state='normal')
+        txt_kq.delete(0, END)
+        txt_kq.insert(0, kq)
+        txt_kq.config(state='readonly')
+    except:
+        txt_kq.config(state='normal')
+        txt_kq.delete(0, END)
+        txt_kq.insert(0, "Lỗi nhập liệu!")
+        txt_kq.config(state='readonly')
+# --- Hàm tiếp ---
+def tiep():
+    txt_a.delete(0, END)
+    txt_b.delete(0, END)
+    txt_c.delete(0, END)
+    txt_kq.config(state='normal')
+    txt_kq.delete(0, END)
+    txt_kq.config(state='readonly')
+    txt_a.focus()
+# --- Hàm thoát ---
+def thoat():
+    frmPTB2.destroy()
+# --- Các nút ---
+btn_giai = Button(btn_frame, text="Giải", width=8, command=giai)
+btn_giai.pack(side=LEFT, padx=2)
+
+btn_tiep = Button(btn_frame, text="Tiếp", width=8, command=tiep)
+btn_tiep.pack(side=LEFT, padx=2)
+
+btn_thoat = Button(btn_frame, text="Thoát", width=8, command=thoat)
+btn_thoat.pack(side=LEFT, padx=2)
+# --- Kết quả ---
+lbl_kq = Label(frmPTB2, text="Kết quả:")
+lbl_kq.grid(row=5, column=0, sticky=E, padx=6, pady=2)
+txt_kq = Entry(frmPTB2, width=30, state='readonly')
+txt_kq.grid(row=5, column=1, padx=6, pady=2)
+# --- Chạy ---
+txt_a.focus()
+frmPTB2.mainloop()

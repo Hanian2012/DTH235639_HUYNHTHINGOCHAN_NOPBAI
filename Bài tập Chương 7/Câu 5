@@ -1,0 +1,64 @@
+from tkinter import *
+# --- Tạo cửa sổ ---
+root = Tk()
+root.title("Máy tính đơn giản")
+root.geometry("240x320")
+root.resizable(False, False)
+# --- Ô hiển thị ---
+txt_display = Entry(root, width=25, justify="right", font=("Arial", 12))
+txt_display.grid(row=0, column=0, columnspan=3, sticky="nsew")
+# --- Hàm xử lý ---
+def click(ch):
+    txt_display.insert(END, str(ch))
+
+def clear_all():
+    txt_display.delete(0, END)
+
+def calculate():
+    expr = txt_display.get()
+    if not expr.strip():
+        return
+    try:
+        for ch in expr:
+            if ch not in "0123456789+-*/.() ":
+                raise ValueError
+        result = eval(expr)
+        txt_display.delete(0, END)
+        txt_display.insert(0, str(result))
+    except:
+        txt_display.delete(0, END)
+        txt_display.insert(0, "Lỗi")
+# --- Cài layout ---
+for i in range(3):
+    root.columnconfigure(i, weight=1)
+for i in range(7):
+    root.rowconfigure(i, weight=1)
+# --- Hàng 1: 1 2 3 ---
+Button(root, text="1", command=lambda: click("1")).grid(row=1, column=0, sticky="nsew")
+Button(root, text="2", command=lambda: click("2")).grid(row=1, column=1, sticky="nsew")
+Button(root, text="3", command=lambda: click("3")).grid(row=1, column=2, sticky="nsew")
+# --- Hàng 2: 4 5 6 ---
+Button(root, text="4", command=lambda: click("4")).grid(row=2, column=0, sticky="nsew")
+Button(root, text="5", command=lambda: click("5")).grid(row=2, column=1, sticky="nsew")
+Button(root, text="6", command=lambda: click("6")).grid(row=2, column=2, sticky="nsew")
+# --- Hàng 3: 7 8 9 ---
+Button(root, text="7", command=lambda: click("7")).grid(row=3, column=0, sticky="nsew")
+Button(root, text="8", command=lambda: click("8")).grid(row=3, column=1, sticky="nsew")
+Button(root, text="9", command=lambda: click("9")).grid(row=3, column=2, sticky="nsew")
+# --- Hàng 4: - 0 . ---
+Button(root, text="-", command=lambda: click("-")).grid(row=4, column=0, sticky="nsew")
+Button(root, text="0", command=lambda: click("0")).grid(row=4, column=1, sticky="nsew")
+Button(root, text=".", command=lambda: click(".")).grid(row=4, column=2, sticky="nsew")
+# --- Hàng 5: + - * / = (sát nhau, chia đều bên trong 3 cột) ---
+ops_frame = Frame(root)
+ops_frame.grid(row=5, column=0, columnspan=3, sticky="nsew")
+ops = ["+", "-", "*", "/", "="]
+for op in ops:
+    if op == "=":
+        btn = Button(ops_frame, text=op, command=calculate)
+    else:
+        btn = Button(ops_frame, text=op, command=lambda o=op: click(o))
+    btn.pack(side=LEFT, fill=BOTH, expand=True)
+# --- Hàng 6: Clr ---
+Button(root, text="Clr", command=clear_all).grid(row=6, column=0, columnspan=3, sticky="nsew")
+root.mainloop()
